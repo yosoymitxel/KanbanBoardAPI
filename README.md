@@ -1,4 +1,4 @@
-## Descripción del Proyecto
+## Kanban Board API
 
 Este proyecto implementa un servicio REST que expone el endpoint `/boards` para gestionar una lista de tareas en formato Kanban. El modelo de datos está predefinido y solo permite lectura.
 
@@ -39,6 +39,10 @@ El proyecto por defecto utiliza la base de datos SQLite3.
 
 1. Iniciar el servidor de Laravel: ```php artisan serve```
 2. La aplicación estará disponible en [http://localhost:8000](http://localhost:8000o)
+
+
+### Test:
+Para probar eficazmente tu API Kanban Board con Postman y el archivo ```KanbanBoardAPI.postman_collection.json``` proporcionado.
 
 ### Contribuciones
 
