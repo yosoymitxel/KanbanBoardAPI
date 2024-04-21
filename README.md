@@ -1,66 +1,45 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Descripción del Proyecto
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este proyecto implementa un servicio REST que expone el endpoint `/boards` para gestionar una lista de tareas en formato Kanban. El modelo de datos está predefinido y solo permite lectura.
 
-## About Laravel
+### Funcionalidades
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+* **Crear una nueva tarea:** Realiza una petición POST al endpoint `/boards` con un objeto JSON en el cuerpo de la solicitud. El objeto debe contener las propiedades `title` (título de la tarea) pero no `id` ni `stage` (etapa). Se asigna un identificador único (`id`) a la nueva tarea de forma secuencial (el primero tendrá id 1, el segundo id 2, etc.). Todas las tareas nuevas se crean en la etapa 1.
+* **Actualizar etapa de una tarea:** Realiza una petición PUT al endpoint `/boards/:id` con la etapa nueva como cuerpo de la solicitud. El parámetro `:id` representa el identificador de la tarea. La etapa solo puede ser 1, 2 o 3. Si se envía un valor inválido, se retorna un código de error 400. Si la etapa es válida, se actualiza la tarea y se devuelve el objeto actualizado en el cuerpo de la respuesta con código 200.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## API
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Funcionalidades
 
-## Learning Laravel
+* **Crear una nueva tarea:**
+    * Método: POST
+    * Endpoint: `/boards`
+    * Cuerpo (JSON): {"title": "Título de la tarea"}
+    * Respuesta: Código 201 y objeto JSON de la tarea creada con propiedades `id`, `title` y `stage` (siempre 1).
+* **Actualizar etapa de una tarea:**
+    * Método: PUT
+    * Endpoint: `/boards/:id` (reemplaza `:id` con el identificador de la tarea)
+    * Cuerpo (JSON): {"stage": nueva_etapa} (nueva_etapa: 1, 2 o 3)
+    * Respuesta:
+        * Código 200 y objeto JSON de la tarea actualizada si la etapa es válida.
+        * Código 400 si la etapa es inválida.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Dependencias
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+El proyecto por defecto utiliza la base de datos SQLite3.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Instalación:
 
-## Laravel Sponsors
+1. Clonar el proyecto: ```git clone https://github.com/yosoymitxel/crud-clientes-laravel```
+2. Configurar las conexiones dentro del archivo .env
+3. Migrar base de datos ```php artisan migrate --seed```
+4. Instalar las dependencias de Laravel: ```composer install```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Ejecución:
 
-### Premium Partners
+1. Iniciar el servidor de Laravel: ```php artisan serve```
+2. La aplicación estará disponible en [http://localhost:8000](http://localhost:8000o)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### Contribuciones
 
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Se aceptan contribuciones al proyecto. Por favor, crea un pull request para enviar tus cambios. 
