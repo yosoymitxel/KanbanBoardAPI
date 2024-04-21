@@ -30,7 +30,7 @@ El proyecto por defecto utiliza la base de datos SQLite3.
 
 ### Instalación:
 
-1. Clonar el proyecto: ```git clone https://github.com/yosoymitxel/crud-clientes-laravel```
+1. Clonar el proyecto: ```git clone https://github.com/yosoymitxel/KanbanBoardAPI.git```
 2. Configurar las conexiones dentro del archivo .env
 3. Migrar base de datos ```php artisan migrate --seed```
 4. Instalar las dependencias de Laravel: ```composer install```
