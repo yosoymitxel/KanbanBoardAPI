@@ -8,5 +8,5 @@ class Boards extends Model
 {
     protected $table = 'Boards';
 
-    protected $fillable = ['id','integer','string'];
+    protected $fillable = ['id','stage','title'];
 }

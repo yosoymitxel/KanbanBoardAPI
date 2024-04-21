@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Boards;
+use Validator;
 use Illuminate\Http\Request;
 
 class BoardsApiController extends Controller
@@ -30,12 +31,12 @@ class BoardsApiController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'stage' => 'required|integer|unsigned',
+            'stage' => 'required|integer|in:1,2,3', // Validate stage is 1, 2 or 3
             'title' => 'required|string',
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+            return response()->json($validator->errors(), 400);
         }
 
         $board = Boards::create($request->all());
@@ -43,12 +44,19 @@ class BoardsApiController extends Controller
         return response()->json($board, 201); // Created status code
     }
 
-    public function update(Request $request, Board $board)
+    public function update(Request $request, string $id)
     {
-        $validStage = [1, 2, 3]; // Allowed stage values
-        if (!in_array($request->stage, $validStage)) {
-            return response()->json([], 400);
+
+        $validator = Validator::make($request->all(), [
+            'stage' => 'required|integer|in:1,2,3', // Validate stage is 1, 2 or 3
+            'title' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
         }
+
+        $board = Boards::findOrFail($id);
 
         $board->update($request->all());
 
